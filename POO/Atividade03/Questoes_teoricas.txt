@@ -1,0 +1,59 @@
+1) Enumere os 3 tipos mais comuns de tratamento de erros e exemplifique com
+códigos seus ou pesquisados na internet.
+R:
+Deconsiderar operação, Ex.: 
+class Conta {
+
+    sacar(valor: number): void {
+        if (this._saldo >= valor) {
+            this._saldo = this._saldo - valor;
+        }
+    }
+
+}
+
+Exibir mensagem de erro, Ex.:
+class Conta {
+
+    sacar(valor: number): void {
+        if (this._saldo >= valor) {
+            this._saldo = this._saldo - valor;
+        } else {
+            console.log("Saldo Insuficiente.");
+        }
+    }
+
+}
+
+Retornar um código de erro, Ex.:
+class Conta {
+
+    sacar(valor: number): boolean {
+        if (this._saldo >= valor) {
+            this._saldo = this._saldo - valor;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+
+
+2) Explique por que cada um dos 3 métodos acima possuem limitações de uso.
+R: 
+Deconsiderar a operação: Problema: ficamos na incerteza do sucesso ou
+não da operação.
+Exibir mensagem de erro: Ficamos atrelados à interface texto.
+Retornar um código de erro: Temos que testar o valor de retorno para saber
+o que houve, Quando o método já retorna valores, temos que
+reservar alguns para representar erros.
+
+
+5) Instancie uma classe banco e crie duas contas. Adicione-as à instancia do banco.
+Chame o método transferir novamente passando um valor que lance a exceção na
+classe conta. Você considera que o lançamento da exceção foi “propagado” para o
+método conta.transferir() e banco.transferir()? Como você avalia a confiabilidade
+dessa implementação.
+R:
+Sim, A classe Banco recebe a exceção como herança da classe Conta.
