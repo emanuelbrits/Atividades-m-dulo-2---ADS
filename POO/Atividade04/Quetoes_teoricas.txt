@@ -1,0 +1,40 @@
+(1) Qual a diferença entre tipagem dinâmica e tipagem estática? 
+R: Na tipagem estática, o tipo é inferido pela variável e a checagem é feita durante a compilação, já na tipagem dinâmica, o tipo é inferido pelo valor do dado e a checagem é feita em tempo de execução (runtime).
+
+(2) Qual o principal problema do uso de tipagem dinâmica? 
+R: Ela torna a detecção de erros mais difícil, pois ela o erro só é visto durante a execução. 
+
+(3) Pesquise um exemplo na internet em que a tipagem dinâmica pode ser  problemático. 
+R: O JavaScript consegue converter o tipo dos dados armazenados em suas variáveis em tempo de execução, 
+oferecendo um dinamismo não encontrado em linguagens estáticas de tipagem forte. 
+Isto pode ser um problema, ou uma vantagem. Depende de como você utiliza a linguagem e a finalidade do seu código.
+Ao compararmos alguns tipos primitivos do JavaScript como números e strings, é possível observar sua conversão dinâmica,
+ou em inglês, o cast de valores. Vejamos alguns exemplos:
+  
+   > 1 == '1'
+   > true
+
+   > 1 === '1'
+   > false
+
+(4) Pesquise e exemplifique com um exemplo porque dizemos que a linguagem C,  mesmo tendo tipagem estática, possui tipagem fraca.
+R: using System;
+
+public class Program
+{
+    public static void Main()
+    {
+        var variavel = "Treinaweb";
+
+        Console.WriteLine(variavel.GetType()); //System.String
+
+        variavel = 28; //Compilation error (line 11, col 14): Cannot implicitly convert type 'int' to 'string'
+    }
+}
+
+
+(5) Pesquise e, se encontrar, um exemplo onde o tipo any seria benéfico. 
+R: O Tipo any não é benéfico pois não há uma certeza do tipo a ser usando tornando assim uma tipagem fraca incerta.
+
+(6) Poderíamos dizer que a tipagem do TypeScript é fraca por uma variável do tipo  number aceitar tanto inteiros como ponto flutuante? 
+R: Não a tipagem do TypeScript continua sendo forte pois delimita a tipagem do NUMBER.

@@ -1,17 +1,17 @@
-#include "pilha.h"
+#include "../pilha.h"
 #include "stdio.h"
 
 void ordenar(int value, Pilha* pilhaA, Pilha* pilhaB) {
 
-	if(!(value <= mostrar_topo(pilhaA) || vazia(pilhaA))) {
-		push(pop(pilhaA), pilhaB);
+	if(!(value <= retornatopo(pilhaA) || vazia(pilhaA))) {
+		empilhar(desempilhar(pilhaA), pilhaB);
 		ordenar(value, pilhaA, pilhaB);
 	} else {
-		push(value, pilhaA);
+		empilhar(value, pilhaA);
 		return;
 	}
 
-	push(pop(pilhaB), pilhaA);
+	empilhar(desempilhar(pilhaB), pilhaA);
 }
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
 	printf("\nitens organizados:\n");
 
 	while(!vazia(pA)) {
-		printf("%d\n", pop(pA));
+		printf("%d\n", desempilhar(pA));
 	}
 
 	return 0;
