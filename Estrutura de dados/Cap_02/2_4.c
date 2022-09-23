@@ -3,7 +3,7 @@
 
 void ordenarpilha(int x, Pilha* a, Pilha* b) {
 
-	if(vazia(a) == 0) {
+	if(x >= mostrartopo(a) && vazia(a) == 0 && cheia(a) == 0) {
 		empilhar(b, desempilhar(a));
 		ordenarpilha(x, a, b);
 	} else {
@@ -36,10 +36,10 @@ int main() {
 	                                 
 	while(vazia(a) == 0) {
 		printf("%d\n", desempilhar(a));
-	}  
+	} 
 	
-	return 0;
-}                       
+}
+	
 
 	
 	                                 

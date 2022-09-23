@@ -46,3 +46,7 @@ int desempilhar(Pilha *p){
 		return aux;
 	}
 }
+
+int mostrartopo(Pilha *p) {
+	return p->item[p->topo];
+}
