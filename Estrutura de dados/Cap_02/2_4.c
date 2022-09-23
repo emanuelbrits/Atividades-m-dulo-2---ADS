@@ -1,37 +1,45 @@
 #include "../pilha.h"
 #include "stdio.h"
 
-void ordenar(int value, Pilha* pilhaA, Pilha* pilhaB) {
+void ordenarpilha(int x, Pilha* a, Pilha* b) {
 
-	if(!(value <= retornatopo(pilhaA) || vazia(pilhaA))) {
-		empilhar(desempilhar(pilhaA), pilhaB);
-		ordenar(value, pilhaA, pilhaB);
+	if(vazia(a) == 0) {
+		empilhar(b, desempilhar(a));
+		ordenarpilha(x, a, b);
 	} else {
-		empilhar(value, pilhaA);
+		empilhar(a, x);
 		return;
 	}
 
-	empilhar(desempilhar(pilhaB), pilhaA);
+	empilhar(a, desempilhar(b));
+	
 }
+		
+
 
 int main() {
-
-	Pilha* pA = criar_pilha();
-	Pilha* pB = criar_pilha();
-
-	int value;
-	scanf("%d", &value);
-
-	while(value != 0) {
-		ordenar(value, pA, pB);
-		scanf("%d", &value);
+	Pilha *a = (Pilha*)malloc(sizeof(Pilha));
+	criarpilha(a);
+	
+	Pilha *b = (Pilha*)malloc(sizeof(Pilha));
+	criarpilha(b);
+	
+	int x;
+	scanf("%d", &x);
+	
+	while(x != 0) {
+		ordenarpilha(x, a, b);
+		scanf("%d", &x);	
 	}
 
-	printf("\nitens organizados:\n");
-
-	while(!vazia(pA)) {
-		printf("%d\n", desempilhar(pA));
-	}
-
+	printf("\nsequencia:\n");
+	                                 
+	while(vazia(a) == 0) {
+		printf("%d\n", desempilhar(a));
+	}  
+	
 	return 0;
-}
+}                       
+
+	
+	                                 

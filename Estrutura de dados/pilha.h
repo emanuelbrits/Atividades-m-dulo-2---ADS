@@ -1,63 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define MAX 5
 
-typedef struct Pilha {
-
+typedef struct{
 	int topo;
-	int max;
-	int *pElem;
-
+	int item[MAX];
 } Pilha;
 
-void criarpilha( struct Pilha *p, int m ){
-
+void criarpilha(Pilha *p){
    p->topo = -1;
-   p->max = m;
-   p->pElem = (int*) malloc (m * sizeof(int));
-
-}
-int vazia ( struct Pilha *p ){
-
-   if( p-> topo == -1 )
-
-      return 1;
-
-   else
-
-      return 0;
-
 }
 
-int cheia ( struct Pilha *p ){
+int vazia (Pilha *p){
+   if(p->topo == -1) {
+   	return 1;
+   } else {
+   	return 0;
+   }
+}
 
-	if (p->topo == p->max - 1)
-
+int cheia (Pilha *p){
+	if (p->topo == MAX-1)
 		return 1;
-
 	else
-
 		return 0;
-
 }
 
-void empilhar ( struct Pilha *p, int v){
-
-	p->topo++;
-	p->pElem [p->topo] = v;
-
+void empilhar (Pilha *p, int x){
+	if(cheia(p) == 1){
+		printf("Pilha cheia!\n");
+	} else {
+		p->topo++;
+		p->item [p->topo] = x;
+	}
 }
 
-int desempilhar ( struct Pilha *p ){
-
-   int aux = p->pElem [p->topo];
-   p->topo--;
-   return aux;
-
+int desempilhar(Pilha *p){
+   int aux;
+   
+   if(vazia(p) == 1){
+		printf("Pilha vazia!\n");
+	} else {
+		aux = p->item[p->topo];
+		p->topo--;
+		return aux;
+	}
 }
-
-int retornatopo ( struct Pilha *p ){
-
-   return p->pElem [p->topo];
-
-}
-		
