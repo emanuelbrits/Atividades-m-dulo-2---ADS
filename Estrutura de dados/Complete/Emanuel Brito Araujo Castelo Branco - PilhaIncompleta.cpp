@@ -3,134 +3,76 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Pilha {
+using namespace std;
 
-	int topo; /* posição elemento topo */
-	int capa;
-	float *pElem;
-
+class No{
+	public:
+		char nome;
+		No *prox;
+		No(char n){
+			nome = n;
+			prox = NULL;
+		}
 };
 
-void criarpilha( struct Pilha *p, int c ){
-
-   p->topo = -1;
-   p->capa = c;
-   p->pElem = (float*) malloc (c * sizeof(float));
-
-}
-int estavazia ( struct Pilha *p ){
-
-   if( p-> topo == -1 )
-
-      return 1;   // true
-
-   else
-
-      return 0;   // false
-
-}
-
-int estacheia ( struct Pilha *p ){
-
-	if (p->topo == p->capa - 1)
-
-		return 1;
-
-	else
-
-		return 0;
-
-}
-
-void empilhar ( struct Pilha *p, float v){
-
-	p->topo++;
-	p->pElem [p->topo] = v;
-
-}
-
-float desempilhar ( struct Pilha *p ){
-
-   float aux = p->pElem [p->topo];
-   p->topo--;
-   return aux;
-
-}
-
-float retornatopo ( struct Pilha *p ){
-
-   return p->pElem [p->topo];
-
-}
-
+class Pilha{
+	public:
+		No *topo;
+		
+		Pilha(){
+			topo = NULL;
+		}
+		
+		void push(char nome, Pilha *p){
+			No *ptr = (No*) malloc(sizeof(No));
+			if(ptr == NULL){
+				printf("Erro de alocacao de no.\n");
+				return;
+			} else {
+				ptr->nome = nome;
+				ptr->prox = p->topo;
+				p->topo = ptr;
+			}
+		}
+		
+		char pop(Pilha *p){
+			No* ptr = 	p->topo;
+			char nome;
+			if(ptr == NULL) {
+				printf("Pilha Vazia!\n");
+			} else {
+				p->topo = ptr->prox;
+				ptr->prox = NULL;
+				nome = ptr->nome;
+				free(ptr);
+				return nome;
+			}
+		}
+		
+		int isEmpty(){
+			
+			if(topo == NULL) {
+				return 1;
+			} else {
+				return 0;
+			}
+		}
+		
+		void imprimepilha(Pilha *p) {
+			No *ptr = p->topo;
+			if(ptr == NULL) {
+				printf("Pilha vazia!\n");
+			} else {
+				while (ptr != NULL) {
+					printf("%c ", ptr->nome);
+					ptr = ptr->prox;
+				}
+				printf("\n");
+			}
+		}
+	
+};
 int main(){
 
-	struct Pilha minhapilha;
-	int capacidade, op;
-	float valor;
 
-	printf( "\nCapacidade da pilha? " );
-	scanf( "%d", &capacidade );
-
-	criarpilha (&minhapilha, capacidade);
-
-	while( 1 ){ /* loop infinito */
-
-		printf("\n1- empilhar (push)\n");
-		printf("2- desempilhar (POP)\n");
-		printf("3- Mostrar o topo \n");
-		printf("4- sair\n");
-		printf("\nopcao? ");
-		scanf("%d", &op);
-
-		switch (op){
-
-			case 1: //push
-
-				if( estacheia( &minhapilha ) == 1 )
-
-					printf("\nPILHA CHEIA! \n");
-
-				else {
-
-					printf("\nVALOR? ");
-					scanf("%f", &valor);
-					empilhar (&minhapilha, valor);
-
-				}
-				break;
-
-			case 2: //pop
-				if ( estavazia(&minhapilha) == 1 )
-
-					printf( "\nPILHA VAZIA! \n" );
-
-				else{
-
-					valor = desempilhar (&minhapilha);
-					printf ( "\n%.1f DESEMPILHADO!\n", valor );
-
-				}
-				break;
-
-			case 3: // mostrar o topo
-				if ( estavazia (&minhapilha) == 1 )
-
-					printf( "\nPILHA VAZIA!\n" );
-
-				else {
-
-					valor = retornatopo (&minhapilha);
-					printf ( "\nTOPO: %.1f\n", valor );
-
-				}
-				break;
-
-			case 4: 
-				exit(0);
-
-			default: printf( "\nOPCAO INVALIDA! \n" );
-		}
-	}
-	
 }
