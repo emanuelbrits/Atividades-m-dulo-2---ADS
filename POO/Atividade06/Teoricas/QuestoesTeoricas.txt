@@ -1,0 +1,13 @@
+1)
+R: Nâo, O erro está devido a falta do "this.".
+
+3)
+R: Não está sendo passado nenhum valor como parâmetro
+para o construtor.
+
+4)
+a)R: o Print resultará em 90; pois o endereço de memória de c1 e c2 agora são os mesmos,
+e qualquer alteração em um desses dois objetos resultará alteração no outro.
+
+b)R: Ele é perdido.
+
