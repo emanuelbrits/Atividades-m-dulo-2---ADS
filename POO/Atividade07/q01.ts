@@ -1,20 +1,12 @@
-class Pessoa {
-    nome: string;
-    constructor(nome: string) {
+export class Pessoa {
+    constructor(public nome: string) {
         this.nome = nome;
     }
 }
-/*
-let p : Pessoa = new Pessoa("ely");
-console.log(p.nome);
-*/
 
-class Conta {
-    numero: string;
-    saldo: number;
-    cliente: Pessoa;
+export  class Conta {
 
-    constructor(numero: string, saldo: number, cliente: Pessoa) {
+    constructor(public numero: string, public saldo: number, public cliente: Pessoa) {
         this.numero = numero;
         this.saldo = saldo;
         this.cliente = cliente;
@@ -46,9 +38,8 @@ class Conta {
     }
 }
 
-class Banco {
-    nomeBanco: string
-    constructor(nomeBanco: string) {
+export class Banco {
+    constructor(public nomeBanco: string) {
         this.nomeBanco = nomeBanco
     }
 
@@ -66,7 +57,15 @@ class Banco {
     }
 
     alterar(conta: Conta): void {}
-    excluir(numero: string): void{}
+    excluir(numero: string): void {
+        let index: number = this.consultarIndex(numero);
+        if (index != -1) {
+            for (let i: number = index; i < this.contas.length; i++) {
+            this.contas[i] = this.contas[i + 1];
+        }
+            this.contas.pop();
+        }
+    }
     
     consultar(Tconta: Conta): boolean {
             for(let conta of this.contas) {
@@ -78,6 +77,17 @@ class Banco {
         }
         
         return false
+    }
+
+    consultarIndex(numero: string): number {
+        let index: number = -1;
+        for (let i: number = 0; i < this.contas.length; i++) {
+            if (this.contas[i].numero === numero) {
+            index = i;
+            break;
+            }
+        }
+        return index;
     }
 
     sacar(numero: string, valor: number): void {
