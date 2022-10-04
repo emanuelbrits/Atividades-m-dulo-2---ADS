@@ -32,7 +32,7 @@ class Conta {
         return this.saldo;
     }
 
-    get nomeCliente() {
+    nomeCliente() {
         return this.cliente.nome;
     }
 
@@ -54,18 +54,31 @@ class Banco {
 
     contas: Conta[] = [];
 
-    inserir(Tconta: Conta): void {
-        for(let conta of this.contas) {
-            if(Tconta.equals(conta)) {
-                console.log("Número já existente");               
-            } else {
-                this.contas.push(Tconta)
-            }
+    inserir(conta: Conta): void {
+        if(this.consultar(conta)) {
+            this.contas.push(conta)
+        } else {
+            console.log(`Número ${conta.numero} já existe`)
         }
     }
+
     alterar(conta: Conta): void {}
     excluir(numero: string): void{}
-    //consultar(numero: string): Conta {}
+    
+    consultar(Tconta: Conta): boolean {
+        if(this.contas[0] === undefined) {
+            return true
+        } else {
+            for(let conta of this.contas) {
+                if(Tconta.numero === conta.numero) {
+                break
+            }
+
+            return true
+        }
+        }  
+        return false
+    }
 
     sacar(numero: string, valor: number): void {
         for(let conta of this.contas) {
@@ -81,8 +94,15 @@ class Banco {
 let p1: Pessoa = new Pessoa("Emanuel")
 let p2: Pessoa = new Pessoa("Italo")
 
-let c1: Conta = new Conta("123", 1000, p1)
-let c2: Conta = new Conta("123", 0, p2)
+let c1: Conta = new Conta("10", 1000, p1)
+let c2: Conta = new Conta("24", 0, p2)
 
 let b1: Banco = new Banco("Banco")
 
+
+
+b1.inserir(c1)
+b1.inserir(c1)
+b1.inserir(c2)
+
+console.log(b1.contas);

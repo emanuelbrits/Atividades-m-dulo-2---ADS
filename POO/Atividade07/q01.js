@@ -23,13 +23,9 @@ var Conta = /** @class */ (function () {
     Conta.prototype.consultarSaldo = function () {
         return this.saldo;
     };
-    Object.defineProperty(Conta.prototype, "nomeCliente", {
-        get: function () {
-            return this.cliente.nome;
-        },
-        enumerable: false,
-        configurable: true
-    });
+    Conta.prototype.nomeCliente = function () {
+        return this.cliente.nome;
+    };
     Conta.prototype.transferencia = function (contaDestino, valor) {
         this.sacar(valor);
         contaDestino.depositar(valor);
@@ -44,30 +40,49 @@ var Banco = /** @class */ (function () {
         this.contas = [];
         this.nomeBanco = nomeBanco;
     }
-    Banco.prototype.inserir = function (Tconta) {
-        for (var i = 0; i < this.contas.length; i++) {
-            if (Tconta.nomeCliente === "Italo") {
-                console.log("Número já existente");
-            }
-            else {
-                this.contas.push(Tconta);
-            }
+    Banco.prototype.inserir = function (conta) {
+        if (this.consultar(conta)) {
+            this.contas.push(conta);
+        }
+        else {
+            console.log("N\u00FAmero ".concat(conta.numero, " j\u00E1 existe"));
         }
     };
     Banco.prototype.alterar = function (conta) { };
     Banco.prototype.excluir = function (numero) { };
-    //consultar(numero: string): Conta {}
-    Banco.prototype.sacar = function (numero, valor) { };
+    Banco.prototype.consultar = function (Tconta) {
+        if (this.contas[0] === undefined) {
+            return true;
+        }
+        else {
+            for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
+                var conta = _a[_i];
+                if (Tconta.numero === conta.numero) {
+                    break;
+                }
+                return true;
+            }
+        }
+        return false;
+    };
+    Banco.prototype.sacar = function (numero, valor) {
+        for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
+            var conta = _a[_i];
+            if (numero === conta.numero) {
+                conta.saldo -= valor;
+            }
+        }
+    };
     Banco.prototype.depositar = function (numero, valor) { };
     Banco.prototype.transfeir = function (numeroOrigem, numeroDestino, valor) { };
     return Banco;
 }());
 var p1 = new Pessoa("Emanuel");
 var p2 = new Pessoa("Italo");
-var c1 = new Conta("123", 1000, p1);
-var c2 = new Conta("123", 0, p2);
+var c1 = new Conta("10", 1000, p1);
+var c2 = new Conta("24", 0, p2);
 var b1 = new Banco("Banco");
+b1.inserir(c1);
 b1.inserir(c1);
 b1.inserir(c2);
 console.log(b1.contas);
-console.log(c1.equals(c2));
