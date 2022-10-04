@@ -41,7 +41,10 @@ var Banco = /** @class */ (function () {
         this.nomeBanco = nomeBanco;
     }
     Banco.prototype.inserir = function (conta) {
-        if (this.consultar(conta)) {
+        if (this.contas[0] === undefined) {
+            this.contas.push(conta);
+        }
+        else if (this.consultar(conta)) {
             this.contas.push(conta);
         }
         else {
@@ -51,17 +54,12 @@ var Banco = /** @class */ (function () {
     Banco.prototype.alterar = function (conta) { };
     Banco.prototype.excluir = function (numero) { };
     Banco.prototype.consultar = function (Tconta) {
-        if (this.contas[0] === undefined) {
-            return true;
-        }
-        else {
-            for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
-                var conta = _a[_i];
-                if (Tconta.numero === conta.numero) {
-                    break;
-                }
-                return true;
+        for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
+            var conta = _a[_i];
+            if (Tconta.numero === conta.numero) {
+                break;
             }
+            return true;
         }
         return false;
     };
@@ -73,8 +71,32 @@ var Banco = /** @class */ (function () {
             }
         }
     };
-    Banco.prototype.depositar = function (numero, valor) { };
-    Banco.prototype.transfeir = function (numeroOrigem, numeroDestino, valor) { };
+    Banco.prototype.depositar = function (numero, valor) {
+        for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
+            var conta = _a[_i];
+            if (numero === conta.numero) {
+                conta.saldo += valor;
+            }
+        }
+    };
+    Banco.prototype.transfeir = function (numeroOrigem, numeroDestino, valor) {
+        this.sacar(numeroOrigem, valor);
+        this.depositar(numeroDestino, valor);
+    };
+    Banco.prototype.quantidadeContas = function () {
+        return this.contas.length;
+    };
+    Banco.prototype.dinheiroDepositado = function () {
+        var soma = 0;
+        for (var _i = 0, _a = this.contas; _i < _a.length; _i++) {
+            var conta = _a[_i];
+            soma += conta.saldo;
+        }
+        return soma;
+    };
+    Banco.prototype.mediaSaldo = function () {
+        return this.dinheiroDepositado() / this.quantidadeContas();
+    };
     return Banco;
 }());
 var p1 = new Pessoa("Emanuel");
@@ -85,4 +107,10 @@ var b1 = new Banco("Banco");
 b1.inserir(c1);
 b1.inserir(c1);
 b1.inserir(c2);
+b1.sacar("10", 100);
+b1.depositar("10", 200);
+b1.transfeir("24", "10", 1000);
+console.log(b1.quantidadeContas());
 console.log(b1.contas);
+console.log(b1.dinheiroDepositado());
+console.log(b1.mediaSaldo());

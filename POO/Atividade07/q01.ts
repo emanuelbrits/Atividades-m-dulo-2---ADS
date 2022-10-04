@@ -55,7 +55,10 @@ class Banco {
     contas: Conta[] = [];
 
     inserir(conta: Conta): void {
-        if(this.consultar(conta)) {
+        
+        if(this.contas[0] === undefined){
+            this.contas.push(conta)
+        }else if(this.consultar(conta)) {
             this.contas.push(conta)
         } else {
             console.log(`Número ${conta.numero} já existe`)
@@ -66,9 +69,6 @@ class Banco {
     excluir(numero: string): void{}
     
     consultar(Tconta: Conta): boolean {
-        if(this.contas[0] === undefined) {
-            return true
-        } else {
             for(let conta of this.contas) {
                 if(Tconta.numero === conta.numero) {
                 break
@@ -76,7 +76,7 @@ class Banco {
 
             return true
         }
-        }  
+        
         return false
     }
 
@@ -87,8 +87,37 @@ class Banco {
             }
         }
     }
-    depositar(numero: string, valor: number): void {}
-    transfeir(numeroOrigem: string, numeroDestino: String, valor: number): void {}
+
+    depositar(numero: string, valor: number): void {
+        for(let conta of this.contas) {
+            if(numero === conta.numero) {
+                conta.saldo += valor
+            }
+        }
+    }
+
+    transfeir(numeroOrigem: string, numeroDestino: string, valor: number): void {
+        this.sacar(numeroOrigem, valor)
+        this.depositar(numeroDestino, valor)
+    }
+
+    quantidadeContas(): number {
+        return this.contas.length
+    }
+
+    dinheiroDepositado(): number {
+        let soma: number = 0
+
+        for(let conta of this.contas) {
+            soma+= conta.saldo
+        }
+
+        return soma
+    }
+
+    mediaSaldo(): number{
+        return this.dinheiroDepositado() / this.quantidadeContas()
+    }
 }
 
 let p1: Pessoa = new Pessoa("Emanuel")
@@ -105,4 +134,12 @@ b1.inserir(c1)
 b1.inserir(c1)
 b1.inserir(c2)
 
-console.log(b1.contas);
+b1.sacar("10", 100)
+b1.depositar("10", 200)
+
+b1.transfeir("24", "10", 1000)
+
+console.log(b1.quantidadeContas())
+console.log(b1.contas)
+console.log(b1.dinheiroDepositado())
+console.log(b1.mediaSaldo())
