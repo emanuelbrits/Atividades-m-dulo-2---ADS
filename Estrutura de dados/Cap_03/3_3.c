@@ -21,7 +21,7 @@ char* posfixa(char* e) {
     Pilha* P = create_stack();
     for(int i = 0; e[i]; i++) {
         if(e[i] == '(') push('(', P);
-        else if(isdigit(e[i])) s[j++] = e[i];
+        else if(isalpha(e[i])) s[j++] = e[i];
         else if(strchr("+-/*", e[i])) {
             while(!stack_is_empty(P) && prio(get_top(P)) >= prio(e[i]))
                 s[j++] = pop(P);
@@ -39,27 +39,6 @@ char* posfixa(char* e) {
     return s;
 }
 
-int valor(char* e) {
-    Pilha* P = create_stack();
-    for(int i = 0; e[i]; i++) {
-        if(isdigit(e[i])) push(e[i]-'0', P);
-        else {
-            int y = pop(P);
-            int x = pop(P);
-            switch(e[i]) {
-                case '+': push(x+y, P); break;
-                case '-': push(x-y, P); break;
-                case '*': push(x*y, P); break;
-                case '/': push(x/y, P); break;
-            }
-        }
-    }
-
-    int z = pop(P);
-    destroy(P);
-    return z;
-}
-
 int main() {
 
     char expression[256];
@@ -70,10 +49,6 @@ int main() {
     char* expressao_posfixa = posfixa(expression);
 
     printf("\nexpressão posfixa: %s\n", expressao_posfixa);
-
-    int value = valor(expressao_posfixa);
-
-    printf("\no resultado é: %d\n", value);
-
+    
     return 0;
 }
