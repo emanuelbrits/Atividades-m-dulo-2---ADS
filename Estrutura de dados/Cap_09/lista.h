@@ -10,7 +10,7 @@ typedef struct no{
     
 } *Lista;
 
-    Lista no(Item x, Lista p) {
+Lista no(Item x, Lista p) {
     Lista n = malloc(sizeof(struct no));
     n->item = x;
     n->prox = p;
