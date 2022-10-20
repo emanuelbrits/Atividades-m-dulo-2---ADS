@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int ocorrencia(Item x, Lista list){
+int ocorrencia(Item x, Lista l){
     int count = 0;
-    while (list != NULL) {
-        if (list->item == x){
+    while (l != NULL) {
+        if (l->item == x){
             count++;
         } 
-        list = list->prox;
+        l = l->prox;
     }
     return count;
 }
