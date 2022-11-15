@@ -1,0 +1,8 @@
+1: Não, ela pode apenas ser herdada.
+
+2: É necessário implementar o mesmo método na classe concreta.
+
+3: Haverá um erro de compilação.
+
+5: Porque não está instanciando a classe em si, e sim uma array dessa classe.
+
