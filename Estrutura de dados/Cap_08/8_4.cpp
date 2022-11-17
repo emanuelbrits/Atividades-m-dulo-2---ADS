@@ -1,3 +1,5 @@
+//dupla: Emanuel Brito e Italo Probo
+
 #define troca(a,b) {int x=a; a=b; b=x; };
 
 int seleciona(int v[],int n) {
