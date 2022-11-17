@@ -1,3 +1,5 @@
+//dupla: Emanuel Brito e Italo Probo
+
 int binary_search(int x, int v[], int n) {
     int p = 0;
     int u = n - 1;
